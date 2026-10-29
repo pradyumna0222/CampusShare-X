@@ -1,31 +1,28 @@
-CAMPUSSHARE X — FULL-STACK APPLICATION (WINDOWS)
+CAMPUSSHARE X — FULL-STACK APPLICATION (POSTGRESQL + NEON READY)
 
-IMPORTANT: This is the server-backed React + Express application, not the old standalone HTML demo.
+IMPORTANT: This is the server-backed React + Express + PostgreSQL application with Neon Free & Render Free deployment support.
 
-1. Extract CampusShare-X-Final.zip to a folder.
-2. Open PowerShell in the extracted folder that directly contains package.json.
-3. Run: Get-ChildItem package.json
-   If PowerShell cannot find package.json, you are in the wrong folder. Move to the folder containing package.json before continuing.
-4. Run: Copy-Item .env.example .env
-5. If a previous install failed, stop Node processes and remove partial node_modules first (see docs/WINDOWS_INSTALL_FIX.md).
-6. Run: npm install
-7. Run: npm run dev
-8. Open: http://localhost:5173
+1. Open PowerShell in the project directory that contains package.json.
+2. Run: Get-ChildItem package.json
+3. Run: Copy-Item .env.example .env
+4. Run: npm install
+5. Run: npm run migrate
+6. Run: npm run dev
+7. Open: http://localhost:5173
 
-Local starter accounts (only for your local development database):
+Local starter accounts (for local development & testing):
 Student:   student@campusshare.local / CampusStudent!2026
 Student 2: student2@campusshare.local / CampusStudent2!2026
 Owner:     owner@campusshare.local / CampusOwner!2026
 Admin:     admin@campusshare.local / CampusAdmin!2026
 
-Run checks after installation:
+Verification suite:
   npm test
   npm run typecheck
   npm run build
 
-Data persists in ./data/campushare.sqlite unless DATA_DIR is changed.
-The seed catalogue and starter accounts are fictional. Do not use them as real institutional inventory or on a public deployment.
+Data persistence:
+Local runs use embedded PostgreSQL (PGlite) or your DATABASE_URL in .env.
+Production deployment uses Neon Free PostgreSQL via DATABASE_URL on Render Free web service.
 
-For a public judge-accessible URL, push the source to your repository and follow the Render Blueprint steps in README.md. A hosting account and secrets are required; a ZIP file alone does not create a public URL.
-
-HACKATHON RULE: The attached statement requires development during the official 48-hour build window and disclosure of AI/tool use and pre-existing components. Confirm with organisers that this generated source may be used as a starting point, then disclose accurately. Do not claim it was created during the event if it was not.
+See README.md for exact step-by-step commands to create the free Neon database, deploy to Render Free, and connect your custom .xyz domain.

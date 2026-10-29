@@ -15,7 +15,7 @@ flowchart TB
     SLOT[Availability and conflict service]
     FLOW[Booking / extension state transitions]
     INC[Condition and incident workflow]
-    DB[(SQLite database)]
+    DB[(Neon PostgreSQL Database)]
     AUD[Audit events and in-app notifications]
     LLM[Optional LLM API]
 
@@ -46,9 +46,9 @@ flowchart TB
 - The browser presents data and collects commands; it is not the authority for role, training or availability.
 - Express authenticates requests with a server-managed cookie and derives the current user from the stored session.
 - The API validates every high-impact transition and verifies resource ownership for owner routes.
-- SQLite stores resources, bookings, condition records, extensions, incidents, notifications, training records and audit events.
+- PostgreSQL (hosted on Neon Serverless PostgreSQL) stores resources, bookings, condition records, extensions, incidents, notifications, training records and audit events.
 - SmartMatch optionally calls an external LLM to extract tags from the user's goal. Only catalogue-allowed tags are accepted. If the provider fails, deterministic extraction is used. The LLM does not determine policy, safety or availability.
-- Date-specific availability is a snapshot for user awareness. The create/approval endpoints repeat conflict and policy checks, because snapshots can become stale.
+- Date-specific availability is a snapshot for user awareness. The create/approval endpoints repeat conflict and policy checks inside database transactions with row-level locks (`SELECT ... FOR UPDATE`), preventing race conditions.
 
 ## Main state transitions
 
@@ -60,16 +60,17 @@ Incident: `open/in_review -> resolved` by a resource owner or administrator; res
 
 ## Data persistence
 
-Default path: `./data/campushare.sqlite`, configurable by `DATA_DIR`. Back up the database with the application stopped or use a consistent SQLite backup mechanism. SQLite is for a single process/host. If using a multi-instance deployment, migrate to a managed database before scaling out.
+Data is persisted in Neon Serverless PostgreSQL using versioned SQL migrations (`server/db/migrations/`).
+Connection pooling is managed via `pg.Pool` with SSL encryption enabled.
+For local offline runs and CI without external dependencies, embedded PostgreSQL (`@electric-sql/pglite`) acts as a drop-in local database engine.
 
 ## Security design
 
-- Bcrypt password hashes and opaque random session tokens persisted only as hashes.
+- Bcrypt password hashes and opaque random session tokens persisted only as SHA-256 hashes in PostgreSQL.
 - HTTP-only, SameSite session cookie; Secure flag in production.
-- Auth rate limiting; Helmet; limited JSON body size.
-- Parameterized SQL and server-side input validation.
+- Auth rate limiting; Helmet headers; limited JSON body size.
+- Parameterized SQL (`$1, $2, ...`) and server-side input validation preventing SQL injection.
 - Role checks, owner checks and verified training checks.
 - Production same-origin guard on mutating requests when an Origin header is present.
 - Audit list routes do not expose edits/deletes to past events through normal application actions.
-
-This is an MVP security baseline, not a substitute for a security review before production use.
+- Safe idempotent seeding that rejects default development passwords in production deployments.

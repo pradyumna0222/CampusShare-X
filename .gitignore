@@ -6,10 +6,14 @@ dist/
 .DS_Store
 npm-debug.log*
 data/
+data-public/
 coverage/
+pgdata/
+test-db/
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
 *.db
 *.db-shm
 *.db-wal
+*.log

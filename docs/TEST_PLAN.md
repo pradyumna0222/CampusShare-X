@@ -59,7 +59,7 @@ Expected: commands complete with exit code 0. The development environment used t
 | M16 | Register a new student | Profile starts pending; booking request is refused | Record after run |
 | M17 | Admin verifies new profile and grants required training | Access status updates only after trusted admin action | Record after run |
 | M18 | Export audit CSV | Only records available to current user's role are exported | Record after run |
-| M19 | Restart application with same `DATA_DIR` | Accounts, bookings and audit events persist | Record after run |
+| M19 | Restart application connected to PostgreSQL (`DATABASE_URL`) | Accounts, bookings and audit events persist | Record after run |
 | M20 | Mobile/narrow screen | Navigation, modals and forms remain usable | Record after run |
 
 ## 4. Security and failure tests

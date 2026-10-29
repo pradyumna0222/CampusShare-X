@@ -2,19 +2,17 @@ services:
   - type: web
     name: campushare-x
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm install && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
-    disk:
-      name: campushare-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
-      - key: DATA_DIR
-        value: /var/data
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
       - key: APP_TIMEZONE
         value: Asia/Kolkata
       - key: BOOKING_TIMEZONE_OFFSET_MINUTES
@@ -38,4 +36,6 @@ services:
       - key: INITIAL_STUDENT2_EMAIL
         sync: false
       - key: INITIAL_STUDENT2_PASSWORD
+        sync: false
+      - key: OPENAI_API_KEY
         sync: false

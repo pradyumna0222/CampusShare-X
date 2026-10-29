@@ -99,11 +99,11 @@ The dashboard presents resource counts, recorded return/use counts, booking life
 
 - **Frontend:** React, TypeScript, Vite, CSS and Lucide icons.
 - **API/backend:** Node.js, Express.
-- **Database:** SQLite via `better-sqlite3`, with foreign keys, indexes and WAL journaling enabled.
+- **Database:** PostgreSQL via `pg` connection pool with SSL (hosted on Neon Serverless PostgreSQL), with foreign keys, indexes, versioned SQL migrations, and row-level locking for conflict prevention. Local offline execution is supported via embedded PostgreSQL (`@electric-sql/pglite`).
 - **Authentication:** bcrypt password hashes, opaque random session token stored as a hash, HTTP-only SameSite cookie.
 - **Hardening:** Helmet security headers, authentication rate limit, JSON/body limits, parameterized SQL, owner/role guards, server-side validation, same-origin mutation check in production.
 - **AI:** Optional OpenAI-compatible chat-completions API for intent-to-tag extraction; deterministic fallback if unavailable.
-- **Deployment shape:** One Node service serves the built web client and API. SQLite requires persistent storage and a single application instance. A larger deployment should migrate to managed PostgreSQL and review transactional conflict constraints.
+- **Deployment shape:** Deployed on Render Free web service connected to Neon Free PostgreSQL via `DATABASE_URL`. Front-end React bundle and Express API are hosted on the same origin without requiring paid persistent disks. Custom .xyz domain can be attached via DNS CNAME/ALIAS records.
 
 ## 8. Data model
 

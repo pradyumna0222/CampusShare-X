@@ -34,7 +34,7 @@ These credentials are for the local development database only. Never reuse them 
 16. **Account verification:** register a new student. Confirm the profile starts pending and cannot book. As administrator, verify the profile and assign the appropriate role only if authorised.
 17. **Training verification:** as administrator, add/verify a required training record. Confirm the student can then request the matching restricted resource only when all other conditions pass.
 18. **Role security:** as a student, try to call an admin or owner-only endpoint. Confirm the server rejects it; do not rely only on hidden UI buttons.
-19. **Persistence:** stop and restart the application using the same `DATA_DIR`. Verify accounts, requests and audit history still exist.
+19. **Persistence:** stop and restart the application connected to the same PostgreSQL database (`DATABASE_URL`). Verify accounts, requests and audit history still exist.
 20. **Availability uncertainty:** stop the API or request a date while offline. Confirm the UI does not claim the resource is verified available.
 21. **Responsive view:** test the primary workflows at a narrow screen width and ensure buttons/forms remain usable.
 

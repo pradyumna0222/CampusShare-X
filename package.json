@@ -14,26 +14,28 @@
     "start": "node server/index.js",
     "preview": "vite preview --host 0.0.0.0",
     "typecheck": "tsc -b --pretty",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "migrate": "node server/db/migrate.js"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "bcryptjs": "^2.4.3",
-    "better-sqlite3": "12.10.0",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "helmet": "^8.0.0",
     "lucide-react": "^0.468.0",
+    "pg": "^8.23.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vite": "^6.0.5"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.12",
+    "@electric-sql/pglite": "^0.5.13",
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.2",
+    "@types/pg": "^8.23.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "supertest": "^7.0.0",
