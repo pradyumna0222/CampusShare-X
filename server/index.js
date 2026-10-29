@@ -1824,3 +1824,4 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
 }
 
 export { app, query, closeDb, runMigrations, runSeed }
+export default app
