@@ -269,7 +269,7 @@ vercel.json                 Vercel build and API routing configuration
 ## Project and contribution
 
 **Project:** CampusShare X  
-**Contributor:** RAMADURGAM PRADYUMNA (sole individual contributor, as declared by the project owner)
+**Contributor:** RAMADURGAM PRADYUMNA (sole individual contributor)
 
 AI-assisted tools were used during project planning, code generation, debugging and refinement. The optional SmartMatch LLM integration is a separate runtime feature and is not required for deterministic matching. Any hackathon submission should disclose AI assistance, libraries, frameworks and pre-existing components in accordance with the event rules.
 
